@@ -17,7 +17,7 @@
     $display_address = $display_city = $display_country = $display_postalcode = 
     $display_aboutme = "";
 
-    $table_name = 'user';
+    $table_name = 'user_profile';
     $where_field = 'user_userid';
 //Delete Functionality
 
@@ -39,7 +39,6 @@ if((!empty($_GET['id'])) && $_GET['action']=="delete"){
 //Insert/Update Validation
 
 if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
-    $where_data= $_GET['id'];
 //Username Validation      
     if(!($_POST['user_username'])==""){
         if (!(strlen($_POST['user_username']) >5 && strlen($_POST['user_username']) < 11)) {
@@ -211,7 +210,7 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
         } 
     }
 //Add User Profile
-    if(isset($_POST['add_conference'])){
+    if(isset($_POST['add_user'])){
         $x=1;
         foreach($_POST as $key=>$value){
             if($key != "add_user"){
@@ -240,6 +239,7 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
     }
     
 }
+// Array ( [id] => 10 [action] => edit ) 
 
     if((!empty($_GET['id'])) && $_GET['action']=="edit"){
         $where_data= $_GET['id'];

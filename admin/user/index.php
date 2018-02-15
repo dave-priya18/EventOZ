@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="header">
                         <h4 class="title">Enrolled User Profile</h4>
-                        <a class="pull-right" href='user_manipulate.php'>Add User Profile</a>
+                        <a class="pull-right" href='user_manipulation.php'>Add User Profile</a>
                     </div>
                     <div class="content table-responsive table-full-width">
                         <table class="table table-hover table-striped">

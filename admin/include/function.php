@@ -25,7 +25,7 @@ function login_data($table_name,$field_name,$data_value,$_connection){
 function get_data($table_name,$where_field,$where_data,$_connection){
 
 	$fetch_all_query =  "SELECT * FROM $table_name WHERE $where_field = '".$where_data."'";
-	$fetch_all_result = mysqli_query($_connection,$fetch_all_query);
+	$fetch_all_result = mysqli_query($_connection,$fetch_all_query) or die("Query Error");
 
 	if($fetch_all_row = mysqli_fetch_assoc($fetch_all_result)){ 
 
@@ -61,8 +61,8 @@ function delete_data($table_name,$where_field,$where_data,$_connection){
 }
 
 function insert_data($table_name,$field,$data,$_connection){
-	$insert_query = "INSERT INTO $table_name($field,admin_id,created_by) VALUES ($data,'".$_SESSION['admin_credential']['admin_id']."','".$_SESSION['admin_credential']['admin_id']."')" ;
-	$insert_result = mysqli_query($_connection,$insert_query);
+	echo $insert_query = "INSERT INTO $table_name($field,admin_id,created_by) VALUES ($data,'".$_SESSION['admin_credential']['admin_id']."','".$_SESSION['admin_credential']['admin_id']."')" ;
+	$insert_result = mysqli_query($_connection,$insert_query) or die('Query Error');
 	if($insert_result){
 		return $output['success'] =1;
 	}

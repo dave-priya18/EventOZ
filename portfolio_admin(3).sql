@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 14, 2018 at 03:01 PM
+-- Generation Time: Feb 15, 2018 at 03:20 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -95,10 +95,8 @@ CREATE TABLE `conference_detail` (
 --
 
 INSERT INTO `conference_detail` (`conference_id`, `conference_title`, `conference_image`, `conference_desc`, `conference_start_date`, `conference_end_date`, `conference_landmark`, `conference_active_flag`, `created_by`, `updated_by`, `admin_id`, `conference_city`, `conference_state`, `conference_country`, `conference_postalcode`) VALUES
-(5, 'All IIT Conference', '980x420-full-size.jpg', ' All IIT student do gather to address new batch student and give them valuable advise on how to start coping up with IITs. ', '2018-02-15', '2018-02-28', 'IIT Bombay, Near Powai Lake, Powai', 1, 1, 1, 1, 'Mumbai', 'Maharashtra', 'India', 898989),
-(6, 'All DAIICT ', 'download.jpg', 'ALL DAIICTians at Synapase ', '2018-02-21', '2018-02-23', '', 0, 1, 0, 1, '', '', '0', 0),
-(10, 'Python Conference', 'image.jpg', 'Python establishing new key sets to help in data analytics more.', '2018-02-14', '2018-02-15', 'Lecture Theater-2, DAIICT, Nr. TCS Garima Park', 0, 1, 0, 1, 'Gandhinagar', 'Gujarat', 'India', 382001),
-(11, '134567', 'Screenshot from 2018-02-02 10-01-36.png', ' agdzm zdfmkru7l', '2018-02-17', '2018-02-26', 'cjsr6ks4ri46u', 0, 1, 0, 1, 's4jk46ik', 's4j4io', 'r6jd5rioo', 898856);
+(13, 'All IIT Conference cbdrtthdr v', '', 'ncvjhyykd', '2018-02-22', '2018-02-24', 'dsfcegnbrhyn', 0, 1, 0, 1, 'fgnrt6mk', 'gf ntyumk6rkm', 'nfgt i,y', 895623),
+(14, 'cx xf', '', 'debvsertnh', '2018-04-04', '2019-06-05', 'fx ndtyh', 0, 0, 0, 1, 'fgry', 'fgbnrdyj', 'fgnhryj', 232323);
 
 -- --------------------------------------------------------
 
@@ -218,16 +216,16 @@ CREATE TABLE `user_profile` (
   `user_country` varchar(50) NOT NULL COMMENT 'User Country',
   `user_postalcode` int(6) NOT NULL COMMENT 'User PostalCode',
   `user_aboutme` varchar(100) NOT NULL COMMENT 'User About Me',
-  `admin_id` int(3) NOT NULL
+  `admin_id` int(3) NOT NULL,
+  `created_by` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_profile`
 --
 
-INSERT INTO `user_profile` (`user_userid`, `company_name`, `user_username`, `user_email`, `user_fname`, `user_lname`, `user_address`, `user_city`, `user_country`, `user_postalcode`, `user_aboutme`, `admin_id`) VALUES
-(10, 'Creative Code Inc.', 'eanhaetj', '123@123.com', '123', '123', '2123', '223r2t', 'svetb', 789456, ' mdt,ud6ti,.', 1),
-(11, 'Creative Code Inc.', 'qwerty56', 'qwerty@co.co', 'mjdvoskb', 'oksdfbi', 'okdbm0we', 'mkosdmb0', 'mkosdmb0e', 122997, ' zSDNfdzmzrmyzhzsb', 1);
+INSERT INTO `user_profile` (`user_userid`, `company_name`, `user_username`, `user_email`, `user_fname`, `user_lname`, `user_address`, `user_city`, `user_country`, `user_postalcode`, `user_aboutme`, `admin_id`, `created_by`) VALUES
+(12, 'Creative Code Inc.', 'vfet', 'bv@we.copm', 'sxksavklpm', 'msvoavm,', 'msdok mp,pleq jk[weq  dferbh   ', 'sbet', 'bestgh', 789456, '   bvsrn ', 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -295,7 +293,7 @@ ALTER TABLE `company_banner`
 -- AUTO_INCREMENT for table `conference_detail`
 --
 ALTER TABLE `conference_detail`
-  MODIFY `conference_id` int(3) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=12;
+  MODIFY `conference_id` int(3) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `conference_schedule_detail`
@@ -319,7 +317,7 @@ ALTER TABLE `conference_sponsor_detail`
 -- AUTO_INCREMENT for table `user_profile`
 --
 ALTER TABLE `user_profile`
-  MODIFY `user_userid` int(3) NOT NULL AUTO_INCREMENT COMMENT 'User Id: Primary Key', AUTO_INCREMENT=12;
+  MODIFY `user_userid` int(3) NOT NULL AUTO_INCREMENT COMMENT 'User Id: Primary Key', AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

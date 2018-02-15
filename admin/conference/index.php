@@ -54,7 +54,7 @@
                                 <!-- Conference End Date -->
                                 <td>    <?php echo $rows['conference_end_date']?></td>
                                 <!-- Conference Poster -->
-                                <td>    <img src="<?php echo CONFERENCE_PATH; ?><?php echo $rows['conference_image'];?>" height="100" width="100"> </td>
+                                <td>    <img src="<?php echo BASE_URL; ?>conference_image/<?php echo $rows['conference_image'];?>" height="100" width="100"> </td>
                                 <td>
                                 <!-- Edit and Delete Button -->   
                                 <a href="conference_manipulation.php?id=<?php echo$rows['conference_id']; ?>&action=edit">
