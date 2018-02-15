@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="user/userprofile.php">
+                    <a href="user/index.php">
                         <i class="pe-7s-user"></i>
                         <p>User Profile</p>
                     </a>
@@ -32,17 +32,18 @@
                 <li>
                     <a href="conference/index.php">
                         <i class="pe-7s-note2"></i>
-                        <p>About Us</p>
+                        <p>Conference
+                        </p>
                     </a>
                 </li>
                 <li>
-                    <a href="schedule/schedule.php">
+                    <a href="schedule/index.php">
                         <i class="pe-7s-news-paper"></i>
                         <p>Schedule</p>
                     </a>
                 </li>
                 <li>
-                    <a href="speaker/speaker.php">
+                    <a href="speaker/index.php">
                         <i class="pe-7s-science"></i>
                         <p>Speaker</p>
                     </a>

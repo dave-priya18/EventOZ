@@ -1,24 +1,28 @@
 
+<!-- Add Conference -->
+<?php
+    if(isset($_POST['add_conference'])){
+       header('Location: conference_manipulation.php');
+    }
+
+?>
 <!-- Connection File -->
-<?php require('../include/connection.php'); ?>
-
-<!-- Add Conference File -->
-
+<?php include('../include/connection.php'); ?>
 
 
 <!-- Header File -->
-<?php require('../layout/header.php');  ?>
+<?php include('../layout/header.php'); ?>
 <!-- Left Side Bar File -->
-<?php require('../layout/leftsidebar.php');  ?>
+<?php include('../layout/leftsidebar.php'); ?>
 
 <!-- HTML Code -->
 
-<!-- <form method="POST" action ="conference_manipulation.php"> -->
+<form method="post">
     <div class="content">
     <div class="container-fluid">
 <!-- Button: Add Conference -->
-        <!-- <button type="submit" class="btn btn-info btn-fill pull-right" name="add_conference">Add Conference</button> -->
-        <a href='conference_manipulation.php'>Edit</a>
+        <!-- <label style="color:red";> <?php echo $error; ?> </label> -->
+        <button type="submit" class="btn btn-info btn-fill pull-right" name="add_conference">Add Conference</button>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -50,18 +54,14 @@
                                 <!-- Conference End Date -->
                                 <td>    <?php echo $rows['conference_end_date']?></td>
                                 <!-- Conference Poster -->
-                                <td>    <img src="http://localhost/EventOZ/conference_image/<?php echo $rows['conference_image'];?>" height="100" width="100"> </td>
+                                <td>    <img src="<?php echo CONFERENCE_PATH; ?><?php echo $rows['conference_image'];?>" height="100" width="100"> </td>
                                 <td>
                                 <!-- Edit and Delete Button -->   
-                               
-                                <a name="edit_conference"
-                                    href='conference_manipulation.php?id=<?php echo $rows['conference_id']; ?>'>Edit</a>
+                                <a href="conference_manipulation.php?id=<?php echo$rows['conference_id']; ?>&action=edit">
+                                Edit </a>
+                                <a href="conference_manipulation.php?id=<?php echo $rows['conference_id']; ?>&action=delete" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+                                
                                 </td>
-                                <td>
-                                <?php
-                                    echo "<a href='conference_manipulation.php?id=" .md5($rows['conference_id']) ."'>Delete</a>"; ?>
-                                </td>
-                                <!-- <button type="submit" class="btn btn-info  btn-fill pull-right" method="get" name="edit_conference" value="<?php echo $rows['conference_id']; ?>">Edit </button> -->
                             </tr>
                             </tbody>
 
@@ -75,6 +75,7 @@
         </div>
     </div>
     </div>
-<!-- </form> -->
+</form>
+
 <!-- Footer File -->
-<?php require('../layout/footer.php'); ?>
+<?php include('../layout/footer.php'); ?>

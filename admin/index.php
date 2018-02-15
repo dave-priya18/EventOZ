@@ -18,7 +18,7 @@ if(isset($_POST['login'])){
     }
     else{
         $count++;
-        $login_username_error = "Username is required";
+        $error['username'] = "Username is required";
     }               
 
 //Password Validation
@@ -28,7 +28,7 @@ if(isset($_POST['login'])){
     }
     else{
         $count++;
-        $login_password_error = "Password is Required";
+        $error['password'] = "Password is Required";
     }
 
     if($count != 0){
@@ -38,20 +38,21 @@ if(isset($_POST['login'])){
     }
     else{
 //Login Function 
-
         $table_name = 'admin_login';
         $field_name = array('admin_username','admin_password');
         $data_value = array($var_username,$var_password);
 
-        echo $fetch_data = login_data($table_name,$field_name,$data_value,$_connection);
+       $fetch_data = login_data($table_name,$field_name,$data_value,$_connection);
+      // print_r($fetch_data);
+      // exit;
+    
 // Username and Password match
-        if($fetch_data == 1){ 
-            header('location: dashboard.php');
-            exit;
+        if($fetch_data){ 
+            $_SESSION['admin_credential'] = $fetch_data['output'];
+            header('location: dashboard.php'); 
         }
         else{
-            header('location: index.php');   
-            exit;
+            header('location: index.php');     
         }
     }
 }
@@ -74,30 +75,28 @@ include ('layout/header.php'); ?>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <span style="color:red">* <?php echo $login_username_error;?></span>
+                                    <span style="color:red">* <?php echo $error['username'];?></span>
                                     <input type="text" class="form-control" name="login_username" placeholder="Username" maxlength="10" minlength="6">         
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <span style="color:red">* <?php echo $login_password_error;?></span> 
+                                    <span style="color:red">* <?php echo $error['password'];?></span> 
                                     <input type="password" class="form-control" name="login_password" placeholder="Password"
                                     maxlength="16" minlength="6" >        
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" name="login" class="btn btn-info btn-fill pull-right">Login</button>
-                        <div class="clearfix"></div>
-                    </form>
+                            <button type="submit" name="login" class="btn btn-info btn-fill pull-right">Login</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <?php include('layout/footer.php'); ?>
