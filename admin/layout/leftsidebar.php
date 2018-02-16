@@ -18,44 +18,44 @@
 
             <ul class="nav">
                 <li class="active">
-                    <a href="dashboard.php">
+                    <a href="<?php echo BASE_URL; ?>dashboard.php">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li>
-                    <a href="user/index.php">
+                    <a href="<?php echo BASE_URL; ?>user/index.php">
                         <i class="pe-7s-user"></i>
                         <p>User Profile</p>
                     </a>
                 </li>
                 <li>
-                    <a href="conference/index.php">
+                    <a href="<?php echo BASE_URL; ?>conference/index.php">
                         <i class="pe-7s-note2"></i>
                         <p>Conference
                         </p>
                     </a>
                 </li>
                 <li>
-                    <a href="schedule/index.php">
+                    <a href="<?php echo BASE_URL; ?>schedule/index.php">
                         <i class="pe-7s-news-paper"></i>
                         <p>Schedule</p>
                     </a>
                 </li>
                 <li>
-                    <a href="speaker/index.php">
+                    <a href="<?php echo BASE_URL; ?>speaker/index.php">
                         <i class="pe-7s-science"></i>
                         <p>Speaker</p>
                     </a>
                 </li>
                 <li>
-                    <a href="banner/banner.php">
+                    <a href="<?php echo BASE_URL; ?>banner.php">
                         <i class="pe-7s-display1"></i>
                         <p>Banner</p>
                     </a>
                 </li>
                 <li>
-                    <a href="sponsor/sponsor.php">
+                    <a href="<?php echo BASE_URL; ?>sponsor/index.php">
                         <i class="pe-7s-bell"></i>
                         <p>Sponsors</p>
                     </a>

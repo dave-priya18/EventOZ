@@ -1,9 +1,42 @@
 <?php
+require_once('constant.php');
+class query_function{
+	public $_connection;
+	//by default contructor call
+	public function __construct(){
 
-$output = array();
+			//Exception Handling
+			try{
+			
+			//Mysql Connection
+			$_connection=mysqli_connect(HOST,USERNAME,PASSWORD,DATABASE);		
+				
+				//if not connect
+				if(!$_connection){
+					//throw error
+					throw new Exception("Connection Error");
+				} // if end
+
+
+				
+					
+			} // try close
+			catch(Exception $e){
+				
+				// error message				
+				echo $e->getMessage();
+			} 
+			// catch close
+	
+					return $_connection;
+
+	}  // contructor close
+
 // Select Function
 
-function login_data($table_name,$field_name,$data_value,$_connection){
+function login_data($table_name,$field_name,$data_value){
+
+	$output = array();
 
 
 	$login_data_query = "SELECT * FROM $table_name WHERE $field_name[0] = '".$data_value[0]."' and $field_name[1] = '".$data_value[1]."'";
@@ -22,8 +55,9 @@ function login_data($table_name,$field_name,$data_value,$_connection){
 }
 
 
-function get_data($table_name,$where_field,$where_data,$_connection){
-
+function get_data($table_name,$where_field,$where_data){
+	$output = array();
+	$_connection = $this->__construct();
 	$fetch_all_query =  "SELECT * FROM $table_name WHERE $where_field = '".$where_data."'";
 	$fetch_all_result = mysqli_query($_connection,$fetch_all_query) or die("Query Error");
 
@@ -38,9 +72,21 @@ function get_data($table_name,$where_field,$where_data,$_connection){
 	}
 }
 
-function update_data($table_name,$set,$where_field,$where_data,$_connection){
-		$update_query = "UPDATE $table_name SET $set WHERE $where_field = '$where_data'";
-		$update_result = mysqli_query($_connection,$update_query);
+function update_data($table_name,$set_array,$where_field,$where_data){
+	$output = array();
+	$_connection = $this->__construct();
+	$set = "";
+	$x=1;
+	foreach($set_array as $key=>$value){
+                $set .= "{$key} = \"{$value}\"";
+                if($x < count($set_array)){
+                    $set .= ',';
+                }
+               $x++;
+            }
+	$output = array();
+	$update_query = "UPDATE $table_name SET $set WHERE $where_field = '$where_data'";
+	$update_result = mysqli_query($_connection,$update_query) or die('Query Error');
 		if($update_result){
 			return $output['success'] = 1;
 		}
@@ -49,7 +95,10 @@ function update_data($table_name,$set,$where_field,$where_data,$_connection){
 		}	
 }
 
-function delete_data($table_name,$where_field,$where_data,$_connection){
+function delete_data($table_name,$where_field,$where_data){
+	$output = array();
+	$_connection = $this->__construct();
+	$output = array();
 	$delete_query = "DELETE FROM $table_name WHERE $where_field = '".$where_data."'";
 	$delete_result =  mysqli_query($_connection,$delete_query);
 	if($delete_result){
@@ -60,8 +109,22 @@ function delete_data($table_name,$where_field,$where_data,$_connection){
 	}
 }
 
-function insert_data($table_name,$field,$data,$_connection){
-	echo $insert_query = "INSERT INTO $table_name($field,admin_id,created_by) VALUES ($data,'".$_SESSION['admin_credential']['admin_id']."','".$_SESSION['admin_credential']['admin_id']."')" ;
+function insert_data($table_name,$set_array){
+	$output = array();
+	$_connection = $this->__construct();
+	$field = $data = "";
+	$x =1;
+	foreach($set_array as $key=>$value){
+                $field .= $key;
+                $data .= "'".$value."'";
+                if($x < count($_POST)) {
+                    $field .= ',';
+                    $data .= ',';
+                }
+                $x++;
+            }
+	$output = array();
+	$insert_query = "INSERT INTO $table_name($field,admin_id,created_by) VALUES ($data,'".$_SESSION['admin_credential']['admin_id']."','".$_SESSION['admin_credential']['admin_id']."')" ;
 	$insert_result = mysqli_query($_connection,$insert_query) or die('Query Error');
 	if($insert_result){
 		return $output['success'] =1;
@@ -72,5 +135,5 @@ function insert_data($table_name,$field,$data,$_connection){
 }
 
 
-
+}
 ?>

@@ -1,6 +1,8 @@
 <!-- Connection File -->
 <?php
-    require('../include/connection.php');
+    require_once('../include/constant.php');
+require_once('../include/function.php'); 
+    $query_object = new query_function();
 //Variable Declaration 
     $error = array();
     $error['username'] = $error['email'] = $error['fname'] = $error['lname']
@@ -23,7 +25,7 @@
 
 if((!empty($_GET['id'])) && $_GET['action']=="delete"){
     $where_data= $_GET['id'];
-    $delete_output = delete_data($table_name,$where_field,$where_data,$_connection);
+    $delete_output = $query_object->delete_data($table_name,$where_field,$where_data);
     if($delete_output == 1){ ?>
         <script type="text/javascript"> alert('User Deleted Successfully');</script>
         <?php
@@ -52,7 +54,7 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
             }
             else{
                 //echo "UserName: ".$_POST['user_username']."<br>";
-                $var_user_username = $_POST['user_username'];
+                $var_user_username = mysqli_real_escape_string($_connection,$_POST['user_username']);
             }
         }
     }
@@ -72,7 +74,7 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
         }
         else{
             //echo "Email Id(regex): ".$_POST['user_email']."<br>";
-            $var_user_email = $_POST['user_email'];
+            $var_user_email = mysqli_real_escape_string($_connection,$_POST['user_email']);
         }           
     }
     else{
@@ -87,7 +89,7 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
         }
         else{
             //echo "First Name: ". $_POST['user_fname'] . "<br>";
-            $var_user_fname = $_POST['user_fname'];
+            $var_user_fname = mysqli_real_escape_string($_connection,$_POST['user_fname']);
         }
     }
     else{
@@ -102,7 +104,7 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
         }
     else{
             //echo "Last Name: ".$_POST['user_lname'] ."<br>";
-            $var_user_lname = $_POST['user_lname'];
+            $var_user_lname = mysqli_real_escape_string($_connection,$_POST['user_lname']);
         }
     }
     else{
@@ -117,7 +119,7 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
         }
         else{
             //echo "Address: ".$_POST['user_address']."<br>";
-            $var_user_address = $_POST['user_address'];
+            $var_user_address = mysqli_real_escape_string($_connection,$_POST['user_address']);
         }
     }
     else{
@@ -132,7 +134,7 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
         }
         else{
             //echo "City: ".$_POST['user_city']."<br>";
-            $var_user_city = $_POST['user_city'];
+            $var_user_city = mysqli_real_escape_string($_connection,$_POST['user_city']);
         }
           
     }
@@ -143,7 +145,7 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
 //Country Validation
     if(!($_POST['user_country'])==""){
         //echo "Country: ".$_POST['user_country']."<br>";
-        $var_user_country = $_POST['user_country'];
+        $var_user_country = mysqli_real_escape_string($_connection,$_POST['user_country']);
     }   
     else{
         $count++;
@@ -162,7 +164,7 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
             }
             else{
                 //echo "Postal-Code: ".$_POST['user_postalcode']."<br>";
-                $var_user_postalcode = $_POST['user_postalcode'];
+                $var_user_postalcode = mysqli_real_escape_string($_connection,$_POST['user_postalcode']);
             }
         }
     }
@@ -177,26 +179,24 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
     }
     else{
         //echo "About me: ".$_POST['user_aboutme']."<br>";
-        $var_user_aboutme = $_POST['user_aboutme'];
+        $var_user_aboutme = mysqli_real_escape_string($_connection,$_POST['user_aboutme']);
     }
 
+if($count > 0){
+    ?>
+    <script type="text/javascript">alert('Invalid Input);</script>
+    <?php
+}
+else{
 
 //Edit User Profile
     if(isset($_POST['edit_user'])){
-    $x=1;
     $where_data= $_GET['id'];
-        foreach($_POST as $key=>$value){
-            if($key != "edit_user"){
-                $set .= "{$key} = \"{$value}\"";
-                if($x < count($_POST)-1) {
-                    $set .= ',';
-                }
-                $x++;
-            } 
-        }
+    unset($_POST['edit_user']);
+    $set_array = $_POST;
 
 //Update Function Calling
-    $update_output =  update_data($table_name,$set,$where_field,$where_data,$_connection);
+    $update_output =  $query_object->update_data($table_name,$set_array,$where_field,$where_data);
         if($update_output == 1){ 
             header('location: index.php');
             exit;
@@ -211,21 +211,11 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
     }
 //Add User Profile
     if(isset($_POST['add_user'])){
-        $x=1;
-        foreach($_POST as $key=>$value){
-            if($key != "add_user"){
-                $field .= $key;
-                $data .= "'".$value."'";
-                if($x < count($_POST)-1) {
-                    $field .= ',';
-                    $data .= ',';
-                }
-                $x++;
-            }  
-        }
-    }
+         unset($_POST['add_user']);
+        $set_array = $_POST;
+     }
 //Insert Function Calling
-    $output_insert = insert_data($table_name,$field,$data,$_connection);
+    $output_insert = $query_object->insert_data($table_name,$set_array);
     if($output_insert == 1){
         header('Location: index.php');
         exit;
@@ -239,11 +229,12 @@ if((isset($_POST['add_user']))||(isset($_POST['edit_user'])) ){
     }
     
 }
+}
 // Array ( [id] => 10 [action] => edit ) 
 
     if((!empty($_GET['id'])) && $_GET['action']=="edit"){
         $where_data= $_GET['id'];
-        $output =  get_data($table_name,$where_field,$where_data,$_connection);
+        $output =   $query_object->get_data($table_name,$where_field,$where_data);
         if($output['success'] == 1){
         $display_username= $output['output']['user_username'];
         $display_email= $output['output']['user_email'];

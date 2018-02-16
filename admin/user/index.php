@@ -1,7 +1,12 @@
-<?php include('../include/connection.php'); ?>
-<?php include('../layout/header.php'); ?>
-<?php include('../layout/leftsidebar.php'); ?>
-
+<?php 
+require_once('../include/session.php');require_once('../include/constant.php');
+require_once('../include/function.php');  ?>
+<?php require_once('../layout/header.php'); ?>
+<?php require_once('../layout/leftsidebar.php'); 
+require_once('../include/connection.php');
+$ob = new query_function();
+$_connection = $ob->__construct();
+?>
 <?php
                                     
     $select_query = "SELECT * from `user_profile` WHERE admin_id='".$_SESSION['admin_credential']['admin_id']."'";
@@ -40,7 +45,7 @@
                                 	<td><?php echo $rows['user_fname']?></td>
                                     <td><?php echo $rows['user_lname']?></td>
                                     <td><a href='user_manipulation.php?id=<?php echo $rows['user_userid'];?>&action=edit'>Edit</a></td> 
-                                    <td><a href='user_manipulation.php?id=<?php echo $rows['user_userid']; ?>&action=delete'>Delete</a></td>
+                                    <td><a href='user_manipulation.php?id=<?php echo $rows['user_userid']; ?>&action=delete' onclick="return confirm('Are you sure you want to delete?');">Delete</a></td>
                                 </tr>
                             </tbody>
 <?php

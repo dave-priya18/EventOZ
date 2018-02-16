@@ -1,19 +1,14 @@
-
-<!-- Add Conference -->
-<?php
-    if(isset($_POST['add_conference'])){
-       header('Location: conference_manipulation.php');
-    }
-
+<?php 
+require_once('../include/session.php');require_once('../include/constant.php');
+require_once('../include/function.php');  ?>
+<?php require_once('../layout/header.php'); ?>
+<?php require_once('../layout/leftsidebar.php'); 
+require_once('../include/connection.php');
+$ob = new query_function();
+$_connection = $ob->__construct();
 ?>
-<!-- Connection File -->
-<?php include('../include/connection.php'); ?>
-
 
 <!-- Header File -->
-<?php include('../layout/header.php'); ?>
-<!-- Left Side Bar File -->
-<?php include('../layout/leftsidebar.php'); ?>
 
 <!-- HTML Code -->
 
@@ -22,7 +17,7 @@
     <div class="container-fluid">
 <!-- Button: Add Conference -->
         <!-- <label style="color:red";> <?php echo $error; ?> </label> -->
-        <button type="submit" class="btn btn-info btn-fill pull-right" name="add_conference">Add Conference</button>
+        <a href="conference_manipulation.php"> Add Conference </a>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -54,7 +49,7 @@
                                 <!-- Conference End Date -->
                                 <td>    <?php echo $rows['conference_end_date']?></td>
                                 <!-- Conference Poster -->
-                                <td>    <img src="<?php echo BASE_URL; ?>conference_image/<?php echo $rows['conference_image'];?>" height="100" width="100"> </td>
+                                <td>    <img src="http://localhost/EventOZ/conference_image/<?php echo $rows['conference_image'];?>" height="100" width="100"> </td>
                                 <td>
                                 <!-- Edit and Delete Button -->   
                                 <a href="conference_manipulation.php?id=<?php echo$rows['conference_id']; ?>&action=edit">

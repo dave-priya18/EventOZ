@@ -1,12 +1,14 @@
 <?php 
 require('include/connection.php');
-//require('include/function.php');
+
+require('include/function.php');
 $error = array();
 $error['username']  = "";
 $error['password'] = "";
 $login_username = $login_password = $var_password = $var_username= "";
 $count = 0;
-
+ $query_object = new query_function();
+ 
 if(isset($_POST['login'])){
 //Validation - Username and Password
 
@@ -42,9 +44,7 @@ if(isset($_POST['login'])){
         $field_name = array('admin_username','admin_password');
         $data_value = array($var_username,$var_password);
 
-       $fetch_data = login_data($table_name,$field_name,$data_value,$_connection);
-      // print_r($fetch_data);
-      // exit;
+       $fetch_data = $query_object->login_data($table_name,$field_name,$data_value);
     
 // Username and Password match
         if($fetch_data){ 

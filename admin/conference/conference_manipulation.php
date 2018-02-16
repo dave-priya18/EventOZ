@@ -1,5 +1,7 @@
 <?php
-require('../include/connection.php');
+ require_once('../include/constant.php');
+require_once('../include/function.php'); 
+$query_object = new query_function();
 $error = array();
 $output = array();
 $count = 0;
@@ -24,7 +26,7 @@ $set = "";
 
 if((!empty($_GET['id'])) && $_GET['action']=="delete"){
     $where_data= $_GET['id'];
-    $delete_output = delete_data($table_name,$where_field,$where_data,$_connection);
+    $delete_output = $query_object->delete_data($table_name,$where_field,$where_data,$_connection);
     if($delete_output == 1){
         header('Location: index.php');
     }
@@ -36,7 +38,6 @@ if((!empty($_GET['id'])) && $_GET['action']=="delete"){
 
 }
 if((isset($_POST['add_conference']))||(isset($_POST['edit_conference'])) ){
-     $where_data= $_GET['id'];
     //About us title Validation
 
         if(!($_POST['conference_title'])==""){
@@ -46,7 +47,7 @@ if((isset($_POST['add_conference']))||(isset($_POST['edit_conference'])) ){
             }
             else{
                     //echo "Title: ".$_POST['conference_title']."<br>";
-                    $var_conference_title = $_POST['conference_title'];
+                    $var_conference_title = mysqli_real_escape_string($_connection,$_POST['conference_title']);
               }
         }
         else{
@@ -63,7 +64,7 @@ if((isset($_POST['add_conference']))||(isset($_POST['edit_conference'])) ){
             }
             else{
                 //echo "Description : ".$_POST['conference_desc']."<br>";
-                $var_conference_desc = $_POST['conference_desc'];
+                $var_conference_desc = mysqli_real_escape_string($_connection,$_POST['conference_desc']);
             }
         }
         else{
@@ -73,7 +74,7 @@ if((isset($_POST['add_conference']))||(isset($_POST['edit_conference'])) ){
 // Image Validation
 
         if(!(empty($_FILES['conference_image']['name']))){
-          $var_conference_image = $_FILES['conference_image']['name'];
+          $var_conference_image = mysqli_real_escape_string($_connection,$_FILES['conference_image']['name']);
           $target_folder = CONFERENCE_PATH;
           $target_file = $target_folder . basename($_FILES['conference_image']['name']);
 
@@ -107,7 +108,7 @@ if((isset($_POST['add_conference']))||(isset($_POST['edit_conference'])) ){
             }
 
             else{
-                 $var_conference_start_date =$_POST['conference_start_date'];
+                 $var_conference_start_date = mysqli_real_escape_string($_connection,$_POST['conference_start_date']);
             }
         }
         else{
@@ -123,7 +124,7 @@ if((isset($_POST['add_conference']))||(isset($_POST['edit_conference'])) ){
                 $error['end_date']  = "Date is invalid";
             }
             else{
-                 $var_conference_end_date =$_POST['conference_end_date'];
+                 $var_conference_end_date = mysqli_real_escape_string($_connection,$_POST['conference_end_date']);
             }
         }
         else{
@@ -140,7 +141,7 @@ if((isset($_POST['add_conference']))||(isset($_POST['edit_conference'])) ){
             }
             else{
                 //echo "City: ".$_POST['conference_city']."<br>";
-                $var_conference_city = $_POST['conference_city'];
+                $var_conference_city = mysqli_real_escape_string($_connection,$_POST['conference_city']);
             }
 
         }
@@ -158,7 +159,7 @@ if((isset($_POST['add_conference']))||(isset($_POST['edit_conference'])) ){
             }
             else{
                 //echo "City: ".$_POST['conference_city']."<br>";
-                $var_conference_state = $_POST['conference_state'];
+                $var_conference_state = mysqli_real_escape_string($_connection,$_POST['conference_state']);
             }
 
         }
@@ -172,7 +173,7 @@ if((isset($_POST['add_conference']))||(isset($_POST['edit_conference'])) ){
 //Country Validation
         if(!($_POST['conference_country'])==""){
             //echo "Country: ".$_POST['conference_country']."<br>";
-            $var_conference_country = $_POST['conference_country'];
+            $var_conference_country = mysqli_real_escape_string($_connection,$_POST['conference_country']);
         }
         else{
             $count++;
@@ -193,7 +194,7 @@ if((isset($_POST['add_conference']))||(isset($_POST['edit_conference'])) ){
                 }
                 else{
                     //echo "Postal-Code: ".$_POST['conference_postalcode']."<br>";
-                    $var_conference_postalcode = $_POST['conference_postalcode'];
+                    $var_conference_postalcode = mysqli_real_escape_string($_connection,$_POST['conference_postalcode']);
                 }
             }
         }
@@ -201,26 +202,21 @@ if((isset($_POST['add_conference']))||(isset($_POST['edit_conference'])) ){
             $count++;
             $error['postalcode'] = "Postal code is Required";
         }
-if(isset($_POST['edit_conference'])){
 
-
-$x=1;
- $where_data= $_GET['id'];
-
-foreach($_POST as $key=>$value){
-            if($key != "edit_conference"){
-                $set .= "{$key} = \"{$value}\"";
-                if($x < count($_POST)-1) {
-                    $set .= ',';
-                }
-                $x++;
-            }
-           
+        if($count > 0){
+            ?>
+            <script type="text/javascript">alert('Invalid Input);</script>
+            <?php
         }
+        else{
+if(isset($_POST['edit_conference'])){
+        $where_data= $_GET['id'];
+        $_POST['conference_image'] = $_FILES['conference_image']['name'];
+        unset($_POST['edit_conference']);
+        $set_array = $_POST;
+
     
-
-     $update_output =  update_data($table_name,$set,$where_field,$where_data,$_connection);
-
+      $update_output =  $query_object->update_data($table_name,$set_array,$where_field,$where_data,$_connection);
         if($update_output == 1){
             header('location: index.php');
         }
@@ -233,24 +229,12 @@ foreach($_POST as $key=>$value){
 
 
     if(isset($_POST['add_conference'])){
-        
-$x=1;
+    $_POST['conference_image'] = $_FILES['conference_image']['name'];
+    unset($_POST['add_conference']);
+    $set_array = $_POST;     
+    }
 
-
-foreach($_POST as $key=>$value){
-            if($key != "add_conference"){
-                $field .= $key;
-                $data .= "'".$value."'";
-                if($x < count($_POST)-1) {
-                    $field .= ',';
-                    $data .= ',';
-                }
-                $x++;
-            }
-           
-        }
-
-      $output_insert = insert_data($table_name,$field,$data,$_connection);
+      $output_insert = $query_object->insert_data($table_name,$set_array,$_connection);
        if($output_insert == 1){
         header('Location: index.php');
        }
@@ -264,12 +248,13 @@ foreach($_POST as $key=>$value){
     }
 
 
+
 }
 
 if((!empty($_GET['id'])) && $_GET['action']=="edit"){
     $where_data= $_GET['id'];
 	
-    $output =  get_data($table_name,$where_field,$where_data,$_connection);
+    $output =  $query_object->get_data($table_name,$where_field,$where_data);
     if($output['success'] == 1){
         $display_title= $output['output']['conference_title'];
         $display_desc= $output['output']['conference_desc'];
@@ -289,6 +274,7 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
     }
 
 }
+
 
 
 ?>
