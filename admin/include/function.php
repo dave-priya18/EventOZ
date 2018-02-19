@@ -1,40 +1,9 @@
 <?php
 require_once('constant.php');
 class query_function{
-	public $_connection;
-	//by default contructor call
-	public function __construct(){
-
-			//Exception Handling
-			try{
-			
-			//Mysql Connection
-			$_connection=mysqli_connect(HOST,USERNAME,PASSWORD,DATABASE);		
-				
-				//if not connect
-				if(!$_connection){
-					//throw error
-					throw new Exception("Connection Error");
-				} // if end
-
-
-				
-					
-			} // try close
-			catch(Exception $e){
-				
-				// error message				
-				echo $e->getMessage();
-			} 
-			// catch close
-	
-					return $_connection;
-
-	}  // contructor close
-
 // Select Function
 
-function login_data($table_name,$field_name,$data_value){
+function login_data($table_name,$field_name,$data_value,$_connection){
 
 	$output = array();
 
@@ -55,10 +24,9 @@ function login_data($table_name,$field_name,$data_value){
 }
 
 
-function get_data($table_name,$where_field,$where_data){
+function get_data($table_name,$where_field,$where_data,$_connection){
 	$output = array();
-	$_connection = $this->__construct();
-	$fetch_all_query =  "SELECT * FROM $table_name WHERE $where_field = '".$where_data."'";
+		$fetch_all_query =  "SELECT * FROM $table_name WHERE $where_field = '".$where_data."'";
 	$fetch_all_result = mysqli_query($_connection,$fetch_all_query) or die("Query Error");
 
 	if($fetch_all_row = mysqli_fetch_assoc($fetch_all_result)){ 
@@ -72,9 +40,8 @@ function get_data($table_name,$where_field,$where_data){
 	}
 }
 
-function update_data($table_name,$set_array,$where_field,$where_data){
+function update_data($table_name,$set_array,$where_field,$where_data,$_connection){
 	$output = array();
-	$_connection = $this->__construct();
 	$set = "";
 	$x=1;
 	foreach($set_array as $key=>$value){
@@ -95,9 +62,7 @@ function update_data($table_name,$set_array,$where_field,$where_data){
 		}	
 }
 
-function delete_data($table_name,$where_field,$where_data){
-	$output = array();
-	$_connection = $this->__construct();
+function delete_data($table_name,$where_field,$where_data,$_connection){
 	$output = array();
 	$delete_query = "DELETE FROM $table_name WHERE $where_field = '".$where_data."'";
 	$delete_result =  mysqli_query($_connection,$delete_query);
@@ -109,9 +74,8 @@ function delete_data($table_name,$where_field,$where_data){
 	}
 }
 
-function insert_data($table_name,$set_array){
+function insert_data($table_name,$set_array,$_connection){
 	$output = array();
-	$_connection = $this->__construct();
 	$field = $data = "";
 	$x =1;
 	foreach($set_array as $key=>$value){

@@ -1,6 +1,5 @@
 <?php
- require_once('../include/constant.php');
-require_once('../include/function.php'); 
+ require_once('../include/connection.php');
 $query_object = new query_function();
 $error = array();
 $output = array();
@@ -254,7 +253,7 @@ if(isset($_POST['edit_conference'])){
 if((!empty($_GET['id'])) && $_GET['action']=="edit"){
     $where_data= $_GET['id'];
 	
-    $output =  $query_object->get_data($table_name,$where_field,$where_data);
+    $output =  $query_object->get_data($table_name,$where_field,$where_data,$_connection);
     if($output['success'] == 1){
         $display_title= $output['output']['conference_title'];
         $display_desc= $output['output']['conference_desc'];

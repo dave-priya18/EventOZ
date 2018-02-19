@@ -1,10 +1,8 @@
 <!-- Connection File -->
 <?php
- require_once('../include/session.php');
- require_once('../include/constant.php');
-require_once('../include/function.php'); 
+ require_once('../include/connection.php');
     $query_object = new query_function();
-    $_connection = $query_object->__construct();
+    
 ?>
 <!-- Conference Title coming from conference_detail table -->
 <?php
@@ -28,7 +26,7 @@ require_once('../include/function.php');
 
 if((!empty($_GET['id'])) && $_GET['action']=="delete"){
     $where_data= $_GET['id'];
-    $delete_output = $query_object->delete_data($table_name,$where_field,$where_data);
+    $delete_output = $query_object->delete_data($table_name,$where_field,$where_data,$_connection);
     if($delete_output == 1){ ?>
         <script type="text/javascript"> alert('speaker Deleted Successfully');</script>
         <?php
@@ -151,7 +149,7 @@ if((isset($_POST['add_speaker']))||(isset($_POST['edit_speaker'])) ){
         unset($_POST['edit_speaker']);
         $set_array = $_POST;
 //Update Function Calling
-    $update_output =  $query_object->update_data($table_name,$set_array,$where_field,$where_data);
+    $update_output =  $query_object->update_data($table_name,$set_array,$where_field,$where_data,$_connection);
         if($update_output == 1){ 
             header('location: index.php');
             exit;
@@ -172,7 +170,7 @@ if((isset($_POST['add_speaker']))||(isset($_POST['edit_speaker'])) ){
         $set_array = $_POST;    
     }
 //Insert Function Calling
-    echo $output_insert = $query_object->insert_data($table_name,$set_array);
+    echo $output_insert = $query_object->insert_data($table_name,$set_array,$_connection);
     if($output_insert == 1){
         header('Location: index.php');
         exit;
@@ -191,7 +189,7 @@ if((isset($_POST['add_speaker']))||(isset($_POST['edit_speaker'])) ){
 
     if((!empty($_GET['id'])) && $_GET['action']=="edit"){
         $where_data= $_GET['id'];
-        $output =   $query_object->get_data($table_name,$where_field,$where_data);
+        $output =   $query_object->get_data($table_name,$where_field,$where_data,$_connection);
         if($output['success'] == 1){
             $display_speakername = $output['output']['speaker_name'];
             $display_speakerdesc = $output['output']['speaker_designation'];

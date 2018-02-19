@@ -60,12 +60,6 @@
                         <p>Sponsors</p>
                     </a>
                 </li>
-				<li class="active-pro">
-                    <a href="upgrade.php">
-                        <i class="pe-7s-rocket"></i>
-                        <p>Upgrade to PRO</p>
-                    </a>
-                </li>
-            </ul>
-    	</div>
+			</ul>
+        </div>
     </div>

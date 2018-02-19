@@ -1,11 +1,9 @@
 <?php 
-require_once('../include/session.php');require_once('../include/constant.php');
-require_once('../include/function.php');  ?>
+require_once('../include/connection.php');  ?>
 <?php require_once('../layout/header.php'); ?>
 <?php require_once('../layout/leftsidebar.php'); 
-require_once('../include/connection.php');
 $ob = new query_function();
-$_connection = $ob->__construct();
+
 ?>
 
 <!-- Header File -->

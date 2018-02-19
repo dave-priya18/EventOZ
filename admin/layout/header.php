@@ -106,7 +106,7 @@
                               </ul>
                         </li>
                         <li>
-                           <a href="login.php">
+                           <a href="index.php">
                                <p>Login</p>
                             </a>
                         </li>

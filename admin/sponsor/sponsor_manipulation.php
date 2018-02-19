@@ -1,10 +1,7 @@
 <!-- Connection File -->
 <?php
-require_once('../include/session.php');
-   require_once('../include/constant.php');
-require_once('../include/function.php'); 
+require_once('../include/connection.php');
     $query_object = new query_function();
-    $_connection = $query_object->__construct();
 ?>
 <!-- Conference Title coming from conference_detail table -->
 <?php
@@ -121,7 +118,7 @@ if((isset($_POST['add_sponsor']))||(isset($_POST['edit_sponsor'])) ){
         $set_array = $_POST;
 
 //Update Function Calling
-    $update_output =  $query_object->update_data($table_name,$set_array,$where_field,$where_data);
+    $update_output =  $query_object->update_data($table_name,$set_array,$where_field,$where_data,$_connection);
         if($update_output == 1){ 
             header('location: index.php');
             exit;
@@ -144,7 +141,7 @@ if((isset($_POST['add_sponsor']))||(isset($_POST['edit_sponsor'])) ){
 
     }
 //Insert Function Calling
-    echo $output_insert = $query_object->insert_data($table_name,$set_array);
+    echo $output_insert = $query_object->insert_data($table_name,$set_array,$_connection);
     if($output_insert == 1){
         header('Location: index.php');
         exit;
@@ -163,7 +160,7 @@ if((isset($_POST['add_sponsor']))||(isset($_POST['edit_sponsor'])) ){
 
     if((!empty($_GET['id'])) && $_GET['action']=="edit"){
         $where_data= $_GET['id'];
-        $output =   $query_object->get_data($table_name,$where_field,$where_data);
+        $output =   $query_object->get_data($table_name,$where_field,$where_data,$_connection);
         if($output['success'] == 1){
             $display_companyname = $output['output']['sponsor_companyname'];
             $display_comapnydesc = $output['output']['sponsor_companydesc'];
