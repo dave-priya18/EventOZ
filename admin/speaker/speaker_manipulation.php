@@ -224,7 +224,7 @@ if((isset($_POST['add_speaker']))||(isset($_POST['edit_speaker'])) ){
                                 <div class="form-group">
                                    <label>Conference Title</label>
                                          <span class="error" style="color:red">* <?php echo $error['conference_id'];?></span>
-                                        <select name="conference_id">
+                                        <select name="conference_id" id="conferenceid">
                                             <option value=""> select -</option>
                                             <?php 
                                                 while($rows_conference_title =mysqli_fetch_assoc($result_conference_title)){ 
@@ -243,7 +243,7 @@ if((isset($_POST['add_speaker']))||(isset($_POST['edit_speaker'])) ){
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Topic Brief</label>
-                                        <textarea rows="5" class="form-control" placeholder="what they'll talk" name="speaking_desc"> <?php echo $display_speaking; ?> </textarea>
+                                        <textarea rows="5" class="form-control" placeholder="what they'll talk" name="speaking_desc" id="desc"> <?php echo $display_speaking; ?> </textarea>
                                         <span class="error" style="color:red">* <?php echo $error['speaking_desc'];?></span>
                                     </div>
                                 </div>
@@ -252,8 +252,8 @@ if((isset($_POST['add_speaker']))||(isset($_POST['edit_speaker'])) ){
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>First Name</label>
-                                        <input type="text" class="form-control" placeholder="First Name" name="speaker_name" value="<?php echo $display_speakername; ?>" >
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Name" name="speaker_name" value="<?php echo $display_speakername; ?>" >
                                         <span class="error" style="color:red">* <?php echo $error['speaker_name'];?></span>
                                     </div>
                                 </div>
@@ -263,7 +263,7 @@ if((isset($_POST['add_speaker']))||(isset($_POST['edit_speaker'])) ){
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Designation</label>
-                                        <input type="text" class="form-control" placeholder="Designation" name="speaker_designation" value="<?php echo $display_speakerdesc; ?>">
+                                        <input type="text" class="form-control" placeholder="Designation" name="speaker_designation" id="designation" value="<?php echo $display_speakerdesc; ?>">
                                         <span class="error" style="color:red">* <?php echo $error['speaker_designation'];?></span>
                                     </div>
                                 </div>
@@ -273,8 +273,7 @@ if((isset($_POST['add_speaker']))||(isset($_POST['edit_speaker'])) ){
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Image</label>
-                                        <input type="file" name="speaker_image" class="form-control">
-                                        <img src="<?php echo SPEAKER_PATH ?><?php echo $display_image;?>" height="100" width="100">
+                                        <input type="file" id="image" name="speaker_image" class="form-control">
                                         <span class="error" style="color:red">* <?php echo $error['speaker_image'];?></span>
                                     </div>
                                 </div>
@@ -302,5 +301,115 @@ if((isset($_POST['add_speaker']))||(isset($_POST['edit_speaker'])) ){
 
 <!-- Footer File -->
 <?php include('../layout/footer.php'); ?>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+         var count = 0;
+   
+       jQuery("#conferenceid").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <31){
+             jQuery(this).css('border','1px solid green');
+           }
+           else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+            }
+           }
+       });
+         jQuery("#desc").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <101){
+             jQuery(this).css('border','1px solid green');
+           }
+           else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+            }
+           }
+          
+
+
+     });
+         jQuery("#name").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <31){
+             jQuery(this).css('border','1px solid green');
+           }
+           else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+            }
+           }
+          
+
+
+     });
+          jQuery("#designation").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <31){
+             jQuery(this).css('border','1px solid green');
+           }
+           else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+            }
+           }
+          
+
+
+     });
+          jQuery("#image").on('blur',function(e){
+                if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <101){
+             jQuery(this).css('border','1px solid green');
+           }
+           else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+            }
+           }
+          
+
+
+     });
+          if(count>0){
+            return false;
+          }
+        });
+
+
+    </script>
 
 

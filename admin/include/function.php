@@ -53,6 +53,7 @@ function update_data($table_name,$set_array,$where_field,$where_data,$_connectio
             }
 	$output = array();
 	$update_query = "UPDATE $table_name SET $set WHERE $where_field = '$where_data'";
+	// echo $update_query; exit;
 	$update_result = mysqli_query($_connection,$update_query) or die('Query Error');
 		if($update_result){
 			return $output['success'] = 1;

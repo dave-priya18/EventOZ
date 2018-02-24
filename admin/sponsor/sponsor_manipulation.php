@@ -194,7 +194,7 @@ if((isset($_POST['add_sponsor']))||(isset($_POST['edit_sponsor'])) ){
                                     <div class="form-group">
                                         <label>Conference Title</label>
                                          <span class="error" style="color:red">* <?php echo $error['conference_id'];?></span>
-                                        <select name="conference_id">
+                                        <select name="conference_id" id="conferenceid">
                                             <option value=""> select -</option>
                                             <?php 
                                                 while($rows_conference_title =mysqli_fetch_assoc($result_conference_title)){ 
@@ -210,7 +210,7 @@ if((isset($_POST['add_sponsor']))||(isset($_POST['edit_sponsor'])) ){
                                     <div class="form-group">
                                         <label>Company Name</label>
                                         <span class="error" style="color:red">* <?php echo $error['sponsor_companyname'];?></span>
-                                        <input type="text" class="form-control" placeholder="Designation" name="sponsor_companyname" value="<?php echo $display_companyname; ?>">
+                                        <input type="text" class="form-control" placeholder="Designation" name="sponsor_companyname" id="name" value="<?php echo $display_companyname; ?>">
                                        
                                     </div>
                                 </div>
@@ -220,7 +220,7 @@ if((isset($_POST['add_sponsor']))||(isset($_POST['edit_sponsor'])) ){
                                     <div class="form-group">
                                         <label>About Comapny</label>
                                         <span class="error" style="color:red">* <?php echo $error['sponsor_companydesc'];?></span>
-                                        <textarea rows="5" class="form-control" placeholder="what they'll talk" name="sponsor_companydesc"> <?php echo $display_companydesc; ?></textarea>
+                                        <textarea rows="5" class="form-control" id="desc" placeholder="what they'll talk" name="sponsor_companydesc"> <?php echo $display_companydesc; ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -229,7 +229,7 @@ if((isset($_POST['add_sponsor']))||(isset($_POST['edit_sponsor'])) ){
                                     <div class="form-group">
                                         <label>Image</label>
                                         <span class="error" style="color:red">* <?php echo $error['sponsor_logo'];?></span>
-                                        <input type="file" name="sponsor_logo" class="form-control">
+                                        <input type="file" name="sponsor_logo" id="image" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -257,5 +257,98 @@ if((isset($_POST['add_sponsor']))||(isset($_POST['edit_sponsor'])) ){
 </div>
 <!-- Footer File -->
 <?php include('../layout/footer.php'); ?>
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+         var count = 0;
+
+       jQuery("#conferenceid").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <31){
+             jQuery(this).css('border','1px solid green');
+           }
+           else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+            }
+           }
+       });
+         jQuery("#desc").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <101){
+             jQuery(this).css('border','1px solid green');
+           }
+           else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+            }
+           }
+          
+
+
+     });
+         jQuery("#name").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <31){
+             jQuery(this).css('border','1px solid green');
+           }
+           else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+            }
+           }
+          
+
+
+     });
+
+          jQuery("#image").on('blur',function(e){
+                if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <101){
+             jQuery(this).css('border','1px solid green');
+           }
+           else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+            }
+           }
+          
+
+
+     });
+          if(count>0){
+            return false;
+          }
+        });
+
+
+    </script>
+
+
 
 

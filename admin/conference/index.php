@@ -72,3 +72,4 @@ $ob = new query_function();
 
 <!-- Footer File -->
 <?php include('../layout/footer.php'); ?>
+

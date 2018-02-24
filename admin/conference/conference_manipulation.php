@@ -4,7 +4,7 @@ $query_object = new query_function();
 $error = array();
 $output = array();
 $count = 0;
-$date = date("d/m/Y");
+$date = date("Y-m-d");
 $error['title'] = $error['desc'] = $error['image'] = $error['start_date'] = 
 $error['end_date'] = $error['venue'] = $error['city'] = $error['state'] =
 $error['country'] = $error['postalcode'] = "";
@@ -298,7 +298,7 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                     <div class="form-group">
                                         <label>Title</label>
                                         <span style="color:red">* <?php echo $error['title'];?></span>
-                                        <input type="text" class="form-control" placeholder="Title of Conference" name="conference_title" maxlength="30"
+                                        <input type="text" class="form-control" id="title" placeholder="Title of Conference" name="conference_title" maxlength="30"
                                         <?php
                                         if((!empty($_GET['id']))  && $_GET['action']=="edit"){
                                             ?>
@@ -315,7 +315,7 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                     <div class="form-group">
                                         <label>Description</label>
                                         <span style="color:red">* <?php echo $error['desc'];?></span>
-                                        <textarea class="form-control" placeholder="Description of About Us" rows="5" cols="20" name="conference_desc" maxlength="20">
+                                        <textarea id="desc" class="form-control" placeholder="Description of About Us" rows="5" cols="20" name="conference_desc" maxlength="20">
                                          <?php
                                         if((!empty($_GET['id']))  && $_GET['action']=="edit"){
                                             echo $display_desc;
@@ -330,15 +330,7 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                     <div class="form-group">
                                         <label>Image</label>
                                         <span class="error" style="color:red"> * <?php echo $error['image']; ?></span>
-                                        <input type="file" name="conference_image" class="form-control"
-                                         <?php
-                                        if((!empty($_GET['id']))  && $_GET['action']=="edit"){
-                                            ?>
-                                            value = "<?php echo $display_image; ?>" >
-                                            <img src="<?php echo CONFERENCE_PATH; ?><?php echo $display_image;?>" height="100" width="100">
-                                        <?php }
-
-                                        ?>
+                                        <input type="file" id="image" name="conference_image" class="form-control">
 
                                     </div>
                                 </div>
@@ -348,7 +340,7 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                     <div class="form-group">
                                         <label>Start Date</label>
                                         <span style="color:red">* <?php echo $error['start_date'];?></span> 
-                                        <input type="Date" class="form-control" placeholder="Start Date" name="conference_start_date"  <?php
+                                        <input type="Date"  id="start_date" class="form-control" placeholder="Start Date" name="conference_start_date"  <?php
                                         if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                             ?>
                                             value = "<?php echo $display_start_date; ?>"
@@ -361,7 +353,7 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                     <div class="form-group">
                                         <label>End Date</label>
                                         <span style="color:red">* <?php echo $error['end_date'];?></span>
-                                        <input type="Date" class="form-control" placeholder="End Date" name="conference_end_date"  <?php
+                                        <input type="Date"  id="end_date" class="form-control" placeholder="End Date" name="conference_end_date"  <?php
                                         if((!empty($_GET['id']) && $_GET['action']=="edit")){
                                             ?>
                                             value = "<?php echo $display_end_date; ?>"
@@ -376,7 +368,7 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                     <div class="form-group">
                                         <label>Conference Venue</label>
                                          <span style="color:red">* <?php echo $error['venue'];?></span> 
-                                        <input type="text" class="form-control" placeholder="Conference venue" name="conference_landmark" maxlength="100"
+                                        <input type="text" id="venue" class="form-control" placeholder="Conference venue" name="conference_landmark" maxlength="100"
                                          <?php
                                         if((!empty($_GET['id']))  && $_GET['action']=="edit"){
                                             ?>
@@ -392,7 +384,7 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                     <div class="form-group">
                                         <label>City</label>
                                         <span style="color:red">* <?php echo $error['city'];?></span> 
-                                        <input type="text" class="form-control" placeholder="City" maxlength="30" name="conference_city"
+                                        <input type="text" id="city" class="form-control" placeholder="City" maxlength="30" name="conference_city"
                                          <?php
                                         if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                             ?>
@@ -406,7 +398,7 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                     <div class="form-group">
                                         <label>State</label>
                                         <span style="color:red">* <?php echo $error['state'];?></span> 
-                                        <input type="text" class="form-control" placeholder="State" maxlength="30" name="conference_state"
+                                        <input type="text" id="state" class="form-control" placeholder="State" maxlength="30" name="conference_state"
                                          <?php
                                         if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                             ?>
@@ -422,7 +414,7 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                     <div class="form-group">
                                         <label>Country</label>
                                          <span style="color:red">* <?php echo $error['country'];?></span>
-                                        <input type="text" class="form-control" placeholder="Country" maxlength="30" name="conference_country"
+                                        <input type="text" id="country" class="form-control" placeholder="Country" maxlength="30" name="conference_country"
                                          <?php
                                         if((!empty($_GET['id']))  && $_GET['action']=="edit"){
                                             ?>
@@ -436,7 +428,7 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
                                     <div class="form-group">
                                         <span style="color:red">* <?php echo $error['postalcode'];?></span> 
                                         <label>Postal Code</label>
-                                        <input type="postalcode" class="form-control" maxlength="6" placeholder="Postal Code" name="conference_postalcode"
+                                        <input type="postalcode" id="postalcode" class="form-control" maxlength="6" placeholder="Postal Code" name="conference_postalcode"
                                          <?php
                                         if((!empty($_GET['id']))  && $_GET['action']=="edit"){
                                             ?>
@@ -469,3 +461,235 @@ if((!empty($_GET['id'])) && $_GET['action']=="edit"){
 <?php include('../layout/footer.php'); ?>
 
 
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+         var count = 0;
+
+       jQuery("#title").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <31){
+             jQuery(this).css('border','1px solid green');
+           }
+           else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+            }
+           }
+          
+
+
+     });
+       jQuery("#desc").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <201){
+                    jQuery(this).css('border','1px solid green');
+                }
+                else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+                }
+           }
+          
+
+
+     });
+
+
+       jQuery("#image").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <101){
+                    jQuery(this).css('border','1px solid green');
+                }
+                else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+                }
+           }
+          
+
+
+     });
+
+      var date = new Date();
+      var dateval = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-"+  ("0" + date.getDate()).slice(-2);
+     
+       jQuery("#start_date").on('blur',function(e){
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val() > dateval){
+                    jQuery(this).css('border','1px solid green');
+                }
+                else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+                }
+           }
+          
+
+
+     });
+
+     jQuery("#end_date").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val() > jQuery('#start_date').val()){
+                    jQuery(this).css('border','1px solid green');
+                }
+                else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+                }
+           }
+          
+
+
+     });
+jQuery("#venue").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <101){
+                    jQuery(this).css('border','1px solid green');
+                }
+                else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+                }
+           }
+          
+
+
+     });
+jQuery("#city").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <31){
+                    jQuery(this).css('border','1px solid green');
+                }
+                else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+                }
+           }
+          
+
+
+     });
+jQuery("#state").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <31){
+                    jQuery(this).css('border','1px solid green');
+                }
+                else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+                }
+           }
+          
+
+
+     });
+jQuery("#country").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+           }
+           else{
+           if(jQuery(this).val().length <31){
+                    jQuery(this).css('border','1px solid green');
+                }
+                else{
+                    jQuery(this).css('border','1px solid red');
+                count++;        
+                }
+           }
+          
+
+
+     });
+jQuery("#postalcode").on('blur',function(e){
+    
+
+       
+           if(jQuery(this).val()==""){
+                jQuery(this).css('border','1px solid red');
+                count++;
+            }
+           else{
+               if(jQuery(this).val().length <7){
+                    var pattern = new RegExp(/^[1-9][0-9]{5}/);
+                    if(pattern.test(jQuery(this).val())){
+                        jQuery(this).css('border','1px solid green');
+                    }
+                    else{
+                        jQuery(this).css('border','1px solid red');
+                        count++;
+                    }
+                }
+                else{
+                    jQuery(this).css('border','1px solid red');
+                    count++;        
+                }
+            }
+     });
+
+    if(count>0){
+            return false;
+           }
+
+           
+   
+        
+    });
+</script>
